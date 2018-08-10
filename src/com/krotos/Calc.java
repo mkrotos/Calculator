@@ -5,10 +5,13 @@ import java.util.Deque;
 
 class Calc {
 
-    Deque<Double> stack=new ArrayDeque<>();
-    String onp;
-    String[] tabONP;
-    double result;		//do użycia w kolejnych obliczeniach
+    //stos liczb
+    private Deque<Double> stack=new ArrayDeque<>();
+    private String onp;
+    //dzialanie onp rozdzielone na wyrazy
+    private String[] tabONP;
+    //do użycia w kolejnych obliczeniach
+    private double result;
 
     //wyrażenie przekazane jako string
     public double calculate(String onp){
@@ -30,11 +33,18 @@ class Calc {
     private void tabToStack(){
         for(String word:tabONP){
             try{
-                //probuje przerobic kolejny wyraz na doubla
+                //probuje przerobic kolejny wyraz na doubla i wrzucic na stos
                 stack.push(Double.parseDouble(word));
             }catch(NumberFormatException e){
                 //jak sie nie da to uznaje ze wyraz oznacza akcje
-                actions(word);
+                switch(word){
+                    case "!":
+                        factorial();		//silnia osobno bo wczytuje tylko jedną liczbe
+                        break;
+                    default:
+                        actions(word);
+                        break;
+                }
             }
             //System.out.println(stack);
         }
@@ -62,17 +72,41 @@ class Calc {
             case "^":
                 c=Math.pow(a, b);
                 break;
+            case "%":
+                c=a%b;
+                break;
             default:		//przerobić na wyjątek?
                 System.out.println("Brak akcji");
                 c=0.0;
         }
-
+        //wynik na stos
         stack.push(c);
         // System.out.println(a+" "+b);
     }
 
+    //wyświetlenie wyniku
     private void showResult(){
         System.out.println("Wynik: "+stack.peek());
         result=stack.peek();
+    }
+
+    //silnia
+    private void factorial(){
+        double a=stack.pop();
+        int a2=(int) a;
+        int c=1;
+        //sprawdzenie czy liczba jest naturalna
+        if(a!=a2||a<0){
+            System.out.println("Silnia tylko z liczb naturalnych");		//przerobić na wyjątek
+            System.out.println("Obecnie silnia z: "+a);
+            stack.push(0.0);
+            return;
+        }
+
+        for(int i=1;i<=a2;i++){
+            c*=i;
+        }
+        //wynik na stos
+        stack.push((double)c);
     }
 }
