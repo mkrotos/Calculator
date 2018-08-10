@@ -4,17 +4,20 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 class ToRPN {
-
-    String equation;
-    Deque<Character> operatorsStack=new ArrayDeque<>();
-    String onp="";
-    String actualValue="";
+    private String equation;
+    //stos operatorów
+    private Deque<Character> operatorsStack=new ArrayDeque<>();
+    //wynik
+    private String onp="";
+    //do budowania liczb
+    private String actualValue="";
     //oddzielenie poszczególnych wyrazów w String onp
-    String pause=" ";
+    private String pause=" ";
 
 
     public String run(String equation){
         this.equation=equation;
+        //czyszczenie poprzednich wyników
         onp="";
         actualValue="";
         operatorsStack.clear();
@@ -23,10 +26,16 @@ class ToRPN {
     }
 
     private void convert(){
+        Character c0;
         Character c;
         Character c2;
         for(int i=0;i<equation.length();i++){
             c=equation.toCharArray()[i];				//zamienic budowanie liczb na osobna metode
+            try{
+                c0=equation.toCharArray()[i-1];
+            }catch(ArrayIndexOutOfBoundsException e){
+                c0=null;
+            }
             try{
                 c2=equation.toCharArray()[i+1];
             }catch(ArrayIndexOutOfBoundsException e){
@@ -56,18 +65,26 @@ class ToRPN {
                         }
                         operatorsStack.pop();	//usuwa nawias otwierający
                         break;
+                    case '!'://---------- silnia poza kolejką
+                        onp+=c+pause;
+                        break;
                     case '+':
                     case '-':
+                        if(c0==null||c0.equals('(')){		//jeśli jest pierwszy lub po nawiasie to uznaje że to nie dzialanie tylko liczba ujemna
+                            actualValue+="-";
+                            break;
+                        }
                     case '*':
                     case '/':
+                    case '%'://-------
                     case '^':
                         while(!operatorsStack.isEmpty()){
-                            if(prior(c)==3||prior(c)>prior(operatorsStack.peek())){
+                            if(prior(c)==3||prior(c)>prior(operatorsStack.peek())){	//sprawdza priorytet dzialania, jak wyższy niż poprzedni lub 3 to nic
                                 break;
                             }else{
-                                onp+=operatorsStack.pop()+pause;
+                                onp+=operatorsStack.pop()+pause;		//przerzuca wszystkie dzialania z priorytetem >= ze stosu do onp
                             }}
-                        operatorsStack.push(c);
+                        operatorsStack.push(c);		//dzialanie na stos
                         break;
                     default: operatorsStack.push(c);
 
@@ -80,7 +97,7 @@ class ToRPN {
         System.out.println(onp);
     }
 
-    private int prior(char a){
+    private int prior(char a){		//ustalenie priorytetu dzialania
         switch(a){
             case '+':
                 return 1;
@@ -89,6 +106,8 @@ class ToRPN {
             case '*':
                 return 2;
             case '/':
+                return 2;
+            case '%'://----------
                 return 2;
             case '^':
                 return 3;
