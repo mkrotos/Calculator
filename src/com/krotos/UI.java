@@ -1,9 +1,11 @@
 package com.krotos;
 
+import com.krotos.functions.Factorial;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class UI {
+class UI {
     private Scanner scanner = new Scanner(System.in);
     private Calc calc = new Calc();
     private ToRPN conv = new ToRPN();
@@ -36,12 +38,17 @@ public class UI {
                         Double res = calc.calculate(conv.run(eq));
                         history.add(eq, res);
                     } catch (NoSuchElementException e) {
+                        //rzucane przez calc.standardActions jesli nie ma dwoch liczb do wczytania ze stosu
                         //e.printStackTrace();
                         System.out.println("No such element ex");
                         System.out.println("Wrong equation");
-                    } catch (Calc.NoSuchActionAvailableException e){
+                    } catch (Calc.NoSuchActionAvailableException e) {
+                        //rzucane przez calc.standardActions jesli ma liczby ale nie ma takiego przypadku
                         System.out.println("There is not such operation available");
                         System.out.println("See help for list of supported operations");
+                    } catch (Factorial.FactorialOnlyNaturalNumbersException e){
+                        System.out.println("Factorial only from natural numbers");
+                        System.out.println("You trying to calculate factorial from "+e.getValue());
                     }
             }
         }

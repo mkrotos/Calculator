@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class ToFile {
+class ToFile {
 
     //zapis historii do pliku txt
 
@@ -13,14 +13,14 @@ public class ToFile {
 
     //dodac zapis w nowych plikach
 
-    public void write(List<Memory> list){
+    void write(List<Memory> list) {
         try {
-            writer = new PrintWriter("calcHistory.txt","UTF-8");
+            writer = new PrintWriter("calcHistory.txt", "UTF-8");
 
             writer.println("https://github.com/mkrotos/Calculator");
             writer.println();
             writer.println("Saved equations: ");
-            for(Memory mem:list){
+            for (Memory mem : list) {
                 writer.println(mem.toString());
             }
             writer.close();

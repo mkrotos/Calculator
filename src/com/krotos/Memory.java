@@ -6,17 +6,14 @@ public class Memory {
     private String eq;
     private Double res;
 
-    public Memory() {
-    }
-
-    public Memory(String eq, Double res) {
+    Memory(String eq, Double res) {
         this.eq = eq;
         this.res = res;
     }
 
     @Override
     public String toString() {
-        return eq + "\n Result: " + res+"\n";
+        return eq + "\n Result: " + res + "\n";
     }
 
     public String getEq() {

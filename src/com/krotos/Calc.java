@@ -16,7 +16,7 @@ class Calc {
     private double result;
 
     //wyrażenie przekazane jako string
-    public double calculate(String onp) {
+    double calculate(String onp) {
         stack.clear();
         this.onp = onp;
         //System.out.println("Zaladowano string: "+onp);
@@ -41,7 +41,8 @@ class Calc {
                 //jak sie nie da to uznaje ze wyraz oznacza akcje
                 switch (word) {
                     case "!":
-                        stack.push(Factorial.calc(stack.pop()));        //silnia osobno bo wczytuje tylko jedną liczbe
+                        Factorial factorial = new Factorial();
+                        stack.push(factorial.calc(stack.pop()));        //silnia osobno bo wczytuje tylko jedną liczbe
                         break;
                     default:
                         standardActions(word);
@@ -93,7 +94,7 @@ class Calc {
     }
 
 
-    class NoSuchActionAvailableException extends RuntimeException {
+    class NoSuchActionAvailableException extends IllegalArgumentException {
         private NoSuchActionAvailableException() {
             super();
         }

@@ -29,7 +29,7 @@ class Main {
         //stałe pi i e
         //integer
         //przerobić na long? notacja naukowa
-        //procenty (zmienic znak modulo)
+        //procenty (zmienic znak modulo)?
         //pierwiastki
         //hex, octa, binar ?
         //zapis do pliku działań i wyników++
