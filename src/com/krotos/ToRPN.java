@@ -63,7 +63,11 @@ class ToRPN {
                             onp += operatorsStack.pop() + pause;
                         }
                         operatorsStack.pop();    //usuwa nawias otwierający
-                        //tutaj ma przerzucać funkcje
+                        //jeśli przed nawiasem otwierającym byl na stosie znacznik funkcji do przerzuc funkcje do onp
+                        if(!operatorsStack.isEmpty()&& operatorsStack.peek().equals('#')){
+                            onp+=functionsStack.pop()+pause;
+                            operatorsStack.pop();
+                        }
                         break;
                     case '!'://---------- silnia poza kolejką
                         onp += c + pause;
@@ -82,7 +86,7 @@ class ToRPN {
                     case '%'://-------
                     case '^':
                         while (!operatorsStack.isEmpty()) {
-                            //sprawdza priorytet dzialania, jak wyższy niż poprzedni lub 3 to nic
+                            //sprawdza priorytet dzialania, jak wyższy niż poprzedni lub 3 to nic (3 to potęgi)
                             if (prior(c) == 3 || prior(c) > prior(operatorsStack.peek())) {
                                 break;
                             } else {
@@ -114,7 +118,7 @@ class ToRPN {
                 return 2;
             case '/':
                 return 2;
-            case '%'://----------
+            case '%':
                 return 2;
             case '^':
                 return 3;
@@ -135,6 +139,7 @@ class ToRPN {
             //jesli kolejny znak nie jest cyfrą to konczy aktualny wyraz i przerzuca go do onp
             if (c2 == null || !Character.isDigit(c2) && !c2.equals('.') && !c2.equals(',')) {
                 onp += actualValue + pause;
+                //reset aktualnego wyrazu
                 actualValue = "";
             }
             return true;
@@ -147,10 +152,17 @@ class ToRPN {
     private boolean buildWord(Character c, Character c2) {
         if (Character.isAlphabetic(c)) {
             actualValue += c;
-            if (c2 == null || !Character.isAlphabetic(c2)) {    //zamienic na nawias?
+            //jesli kolejny znak jest nawiasem to wyraz byl funkcją i idzie na stos funkcji + zmacznik na stos operatorów
+            if (c2!=null&&c2.equals('(')) {
                 functionsStack.push(actualValue.toLowerCase());
-                //kiedy wrzucać do rpn? po nawiasie? dodawac znacznik do stosu operatorów? przerobić stos oper na stos String?
+                //wrzuca # na stos operatorów tam gdzie ma byc funkcja
+                operatorsStack.push('#');
+                //reset aktualnego wyrazu
                 actualValue = "";
+                //jesli konczy się czyms innym to byl wyrazem i idzie od razu do wyrazenia onp
+            }else if(c2 == null || !Character.isAlphabetic(c2)){
+                onp+=actualValue.toLowerCase()+pause;
+                actualValue="";
             }
             return true;
         } else {
