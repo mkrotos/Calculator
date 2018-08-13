@@ -55,6 +55,7 @@ class ToRPN {
                     case ' ':
                         break;
                     case '(':
+                        //dodac że jeśli c0 było liczbą to jeszcze mnożenie
                         operatorsStack.push(c);
                         break;
                     case ')':    //jak trafi na nawias zamykający do przerzuca operatory ze stosu az do nawiasu otwierającego
@@ -147,7 +148,8 @@ class ToRPN {
         if (Character.isAlphabetic(c)) {
             actualValue += c;
             if (c2 == null || !Character.isAlphabetic(c2)) {    //zamienic na nawias?
-                functionsStack.push(actualValue.toLowerCase());     //kiedy wrzucać do rpn? po nawiasie?
+                functionsStack.push(actualValue.toLowerCase());
+                //kiedy wrzucać do rpn? po nawiasie? dodawac znacznik do stosu operatorów? przerobić stos oper na stos String?
                 actualValue = "";
             }
             return true;
