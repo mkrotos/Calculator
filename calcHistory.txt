@@ -1,0 +1,9 @@
+https://github.com/mkrotos/Calculator
+
+Saved equations: 
+12-35*65
+ Result: -2263.0
+
+(23*23-4)*2
+ Result: 1050.0
+

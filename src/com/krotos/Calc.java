@@ -6,7 +6,7 @@ import java.util.Deque;
 class Calc {
 
     //stos liczb
-    private Deque<Double> stack=new ArrayDeque<>();
+    private Deque<Double> stack = new ArrayDeque<>();
     private String onp;
     //dzialanie onp rozdzielone na wyrazy
     private String[] tabONP;
@@ -14,9 +14,9 @@ class Calc {
     private double result;
 
     //wyrażenie przekazane jako string
-    public double calculate(String onp){
+    public double calculate(String onp) {
         stack.clear();
-        this.onp=onp;
+        this.onp = onp;
         //System.out.println("Zaladowano string: "+onp);
         split();
         tabToStack();
@@ -25,21 +25,21 @@ class Calc {
     }
 
     //dzieli stringa na wyrazy po spacjach
-    private void split(){
-        tabONP=onp.split(" ");
+    private void split() {
+        tabONP = onp.split(" ");
         //System.out.println(Arrays.toString( tabONP));
     }
 
-    private void tabToStack(){
-        for(String word:tabONP){
-            try{
+    private void tabToStack() {
+        for (String word : tabONP) {
+            try {
                 //probuje przerobic kolejny wyraz na doubla i wrzucic na stos
                 stack.push(Double.parseDouble(word));
-            }catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 //jak sie nie da to uznaje ze wyraz oznacza akcje
-                switch(word){
+                switch (word) {
                     case "!":
-                        factorial();		//silnia osobno bo wczytuje tylko jedną liczbe
+                        factorial();        //silnia osobno bo wczytuje tylko jedną liczbe
                         break;
                     default:
                         actions(word);
@@ -52,32 +52,32 @@ class Calc {
     }
 
     //pobiera 2 pozycje ze stosu i wykonuje dzialanie, zwraca c na stos
-    private void actions(String act){
-        Double b=stack.pop();
-        Double a=stack.pop();
+    private void actions(String act) throws NoSuchActionAvailableException {
+        Double b = stack.pop();
+        Double a = stack.pop();
         Double c;
-        switch (act){
+        switch (act) {
             case "+":
-                c=a+b;
+                c = a + b;
                 break;
             case "-":
-                c=a-b;
+                c = a - b;
                 break;
             case "*":
-                c=a*b;
+                c = a * b;
                 break;
             case "/":
-                c=a/b;
+                c = a / b;
                 break;
             case "^":
-                c=Math.pow(a, b);
+                c = Math.pow(a, b);
                 break;
             case "%":
-                c=a%b;
+                c = a % b;
                 break;
-            default:		//przerobić na wyjątek?
-                System.out.println("Brak akcji");
-                c=0.0;
+            default:
+                //rzuca wyjątek że nie ma takiej operacji
+                throw new NoSuchActionAvailableException();
         }
         //wynik na stos
         stack.push(c);
@@ -85,28 +85,34 @@ class Calc {
     }
 
     //wyświetlenie wyniku
-    private void showResult(){
-        System.out.println("Wynik: "+stack.peek());
-        result=stack.peek();
+    private void showResult() {
+        System.out.println("Wynik: " + stack.peek());
+        result = stack.peek();
     }
 
     //silnia
-    private void factorial(){
-        double a=stack.pop();
-        int a2=(int) a;
-        int c=1;
+    private void factorial() {
+        double a = stack.pop();
+        int a2 = (int) a;
+        int c = 1;
         //sprawdzenie czy liczba jest naturalna
-        if(a!=a2||a<0){
-            System.out.println("Silnia tylko z liczb naturalnych");		//przerobić na wyjątek
-            System.out.println("Obecnie silnia z: "+a);
+        if (a != a2 || a < 0) {
+            System.out.println("Silnia tylko z liczb naturalnych");        //przerobić na wyjątek
+            System.out.println("Obecnie silnia z: " + a);
             stack.push(0.0);
             return;
         }
 
-        for(int i=1;i<=a2;i++){
-            c*=i;
+        for (int i = 1; i <= a2; i++) {
+            c *= i;
         }
         //wynik na stos
-        stack.push((double)c);
+        stack.push((double) c);
+    }
+
+    class NoSuchActionAvailableException extends RuntimeException {
+        public NoSuchActionAvailableException() {
+            super();
+        }
     }
 }
