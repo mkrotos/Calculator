@@ -1,5 +1,7 @@
 package com.krotos;
 
+import com.krotos.functions.Factorial;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -39,7 +41,7 @@ class Calc {
                 //jak sie nie da to uznaje ze wyraz oznacza akcje
                 switch (word) {
                     case "!":
-                        factorial();        //silnia osobno bo wczytuje tylko jedną liczbe
+                        stack.push(Factorial.calc(stack.pop()));        //silnia osobno bo wczytuje tylko jedną liczbe
                         break;
                     default:
                         standardActions(word);
@@ -90,25 +92,6 @@ class Calc {
         result = stack.peek();
     }
 
-    //silnia
-    private void factorial() {
-        double a = stack.pop();
-        int a2 = (int) a;
-        int c = 1;
-        //sprawdzenie czy liczba jest naturalna
-        if (a != a2 || a < 0) {
-            System.out.println("Silnia tylko z liczb naturalnych");        //przerobić na wyjątek
-            System.out.println("Obecnie silnia z: " + a);
-            stack.push(0.0);
-            return;
-        }
-
-        for (int i = 1; i <= a2; i++) {
-            c *= i;
-        }
-        //wynik na stos
-        stack.push((double) c);
-    }
 
     class NoSuchActionAvailableException extends RuntimeException {
         private NoSuchActionAvailableException() {
