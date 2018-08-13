@@ -42,10 +42,11 @@ class Main {
         //przerobić na long? notacja naukowa
         //procenty (zmienic znak modulo)
         //pierwiastki
-        //hex, octa, binar
+        //hex, octa, binar ?
         //zapis do pliku działań i wyników++
         //historia ++
         //odczyt równania z pliku
+        //tworzenie i zapis zmiennych
 
     }
 }

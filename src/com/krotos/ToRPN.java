@@ -7,6 +7,8 @@ class ToRPN {
     private String equation;
     //stos operatorów
     private Deque<Character> operatorsStack = new ArrayDeque<>();
+    //stos funkcji
+    private Deque<String> functionsStack = new ArrayDeque<>();
     //wynik
     private String onp = "";
     //do budowania liczb
@@ -30,6 +32,7 @@ class ToRPN {
         Character c;
         Character c2;
         for (int i = 0; i < equation.length(); i++) {
+            //przypisanie kolejnych znaków z równania do analizy
             c = equation.toCharArray()[i];
             try {
                 c0 = equation.toCharArray()[i - 1];
@@ -41,9 +44,13 @@ class ToRPN {
             } catch (ArrayIndexOutOfBoundsException e) {
                 c2 = null;
             }
-            if (buildNumber(c,c2)){
-
-            } else {        //jesli trafi na znak inny niz nawias zamykający
+            //analiza znaku
+            //jeśli jest cyfrą:
+            if (buildNumber(c, c2)) {
+                //jeśli jest literą:
+            } else if (buildWord(c, c2)) {
+                //jeśli jest znakiem:
+            } else {
                 switch (c) {
                     case ' ':
                         break;
@@ -51,10 +58,11 @@ class ToRPN {
                         operatorsStack.push(c);
                         break;
                     case ')':    //jak trafi na nawias zamykający do przerzuca operatory ze stosu az do nawiasu otwierającego
-                        while (!operatorsStack.peek().equals('(')) {
+                        while (!operatorsStack.peek().equals('(')) {    //rzucac wyjątek ze nie ma nawiasu otwierającego (jesli null)
                             onp += operatorsStack.pop() + pause;
                         }
                         operatorsStack.pop();    //usuwa nawias otwierający
+                        //tutaj ma przerzucać funkcje
                         break;
                     case '!'://---------- silnia poza kolejką
                         onp += c + pause;
@@ -133,5 +141,18 @@ class ToRPN {
             return false;
         }
     }
+
     //buildWord
+    private boolean buildWord(Character c, Character c2) {
+        if (Character.isAlphabetic(c)) {
+            actualValue += c;
+            if (c2 == null || !Character.isAlphabetic(c2)) {    //zamienic na nawias?
+                functionsStack.push(actualValue.toLowerCase());     //kiedy wrzucać do rpn? po nawiasie?
+                actualValue = "";
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

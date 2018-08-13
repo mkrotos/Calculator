@@ -42,7 +42,7 @@ class Calc {
                         factorial();        //silnia osobno bo wczytuje tylko jedną liczbe
                         break;
                     default:
-                        actions(word);
+                        standardActions(word);
                         break;
                 }
             }
@@ -52,7 +52,7 @@ class Calc {
     }
 
     //pobiera 2 pozycje ze stosu i wykonuje dzialanie, zwraca c na stos
-    private void actions(String act) throws NoSuchActionAvailableException {
+    private void standardActions(String act) throws NoSuchActionAvailableException {
         Double b = stack.pop();
         Double a = stack.pop();
         Double c;
@@ -111,7 +111,7 @@ class Calc {
     }
 
     class NoSuchActionAvailableException extends RuntimeException {
-        public NoSuchActionAvailableException() {
+        private NoSuchActionAvailableException() {
             super();
         }
     }
