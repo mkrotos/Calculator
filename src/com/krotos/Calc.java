@@ -1,6 +1,7 @@
 package com.krotos;
 
 import com.krotos.functions.Factorial;
+import com.krotos.functions.MathConst;
 import com.krotos.functions.Trigonometry;
 
 import java.util.ArrayDeque;
@@ -53,6 +54,12 @@ class Calc {
                     case "ctan":
                         stack.push(Trigonometry.ctan(stack.pop()));
                         break;
+                    case "pi":
+                        stack.push(MathConst.PI.getValue());
+                        break;
+                    case "e":
+                        stack.push(MathConst.E.getValue());
+                        break;
                     case "!":
                         Factorial factorial = new Factorial();
                         stack.push(factorial.calc(stack.pop()));        //silnia osobno bo wczytuje tylko jedną liczbe
@@ -104,6 +111,10 @@ class Calc {
     private void showResult() {
         System.out.println("Wynik: " + stack.peek());
         result = stack.peek();
+    }
+
+    private boolean functions(){
+        return false;
     }
 
 
