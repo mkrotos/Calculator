@@ -1,6 +1,7 @@
 package com.krotos;
 
 import com.krotos.functions.Factorial;
+import com.krotos.functions.Trigonometry;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -40,6 +41,18 @@ class Calc {
             } catch (NumberFormatException e) {
                 //jak sie nie da to uznaje ze wyraz oznacza akcje
                 switch (word) {
+                    case "sin":
+                        stack.push(Trigonometry.sin(stack.pop()));
+                        break;
+                    case "cos":
+                        stack.push(Trigonometry.cos(stack.pop()));
+                        break;
+                    case "tan":
+                        stack.push(Trigonometry.tan(stack.pop()));
+                        break;
+                    case "ctan":
+                        stack.push(Trigonometry.ctan(stack.pop()));
+                        break;
                     case "!":
                         Factorial factorial = new Factorial();
                         stack.push(factorial.calc(stack.pop()));        //silnia osobno bo wczytuje tylko jedną liczbe

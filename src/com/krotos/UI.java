@@ -47,6 +47,7 @@ class UI {
                         System.out.println("There is not such operation available");
                         System.out.println("See help for list of supported operations");
                     } catch (Factorial.FactorialOnlyNaturalNumbersException e){
+                        //rzucany przez silnie jesli liczba nie jest naturalna
                         System.out.println("Factorial only from natural numbers");
                         System.out.println("You trying to calculate factorial from "+e.getValue());
                     }
