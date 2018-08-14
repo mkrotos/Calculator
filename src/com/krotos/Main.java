@@ -18,17 +18,16 @@ class Main {
         //ciąg fibonacciego
         //wyjątki
         //liczby ujemne++
-        //sin cos +wykres
+        //sin cos++ +wykres
         //log
-        //exp
+        //exp++++
         //abs | |
         //min max average
         //random
         //testy
         //sprawdzanie czy dzialanie jest poprawne?
-        //stałe pi i e
+        //stałe pi i e+++
         //integer
-        //przerobić na long? notacja naukowa
         //procenty (zmienic znak modulo)?
         //pierwiastki
         //hex, octa, binar ?

@@ -59,6 +59,15 @@ class Calc {
                         Factorial factorial = new Factorial();
                         stack.push(factorial.calc(stack.pop()));        //silnia osobno bo wczytuje tylko jedną liczbe
                         break;
+                    case "exp":
+                        stack.push(Math.exp(stack.pop()));
+                        break;
+                    case "random":
+                        stack.push(Math.random());
+                        break;
+                    case "r":
+                        stack.push(Math.pow(stack.pop(),0.5));
+                        break;
                     default:
                         standardActions(word);
                         break;
@@ -106,10 +115,6 @@ class Calc {
     private void showResult() {
         System.out.println("Wynik: " + stack.peek());
         result = stack.peek();
-    }
-
-    private boolean functions() {
-        return false;
     }
 
 
