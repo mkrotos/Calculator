@@ -25,7 +25,8 @@ class UI {
                     break;
                 case "help":
                     System.out.println("Supported operations: ");
-                    System.out.println(" + add \n - subtract \n * multiply \n / divide \n % modulo \n ! factorial \n () brackets");
+                    System.out.println(" + add \n - subtract \n * multiply \n / divide \n % modulo \n ! factorial \n () brackets \n" +
+                            " sin() \n cos() \n tan() \n ctan() \n PI \n E");
                     break;
                 case "history":
                     history.show();

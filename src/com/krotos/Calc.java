@@ -1,8 +1,6 @@
 package com.krotos;
 
 import com.krotos.functions.Factorial;
-import com.krotos.functions.MathConst;
-import com.krotos.functions.Trigonometry;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -43,22 +41,19 @@ class Calc {
                 //jak sie nie da to uznaje ze wyraz oznacza akcje
                 switch (word) {
                     case "sin":
-                        stack.push(Trigonometry.sin(stack.pop()));
+                        stack.push(Math.sin(stack.pop()));
                         break;
                     case "cos":
-                        stack.push(Trigonometry.cos(stack.pop()));
+                        stack.push(Math.cos(stack.pop()));
                         break;
                     case "tan":
-                        stack.push(Trigonometry.tan(stack.pop()));
-                        break;
-                    case "ctan":
-                        stack.push(Trigonometry.ctan(stack.pop()));
+                        stack.push(Math.tan(stack.pop()));
                         break;
                     case "pi":
-                        stack.push(MathConst.PI.getValue());
+                        stack.push(Math.PI);
                         break;
                     case "e":
-                        stack.push(MathConst.E.getValue());
+                        stack.push(Math.E);
                         break;
                     case "!":
                         Factorial factorial = new Factorial();
@@ -113,7 +108,7 @@ class Calc {
         result = stack.peek();
     }
 
-    private boolean functions(){
+    private boolean functions() {
         return false;
     }
 
