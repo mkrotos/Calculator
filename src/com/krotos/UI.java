@@ -1,6 +1,6 @@
 package com.krotos;
 
-import com.krotos.functions.Factorial;
+import com.krotos.functions.OnlyNaturalNumbersException;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -49,10 +49,10 @@ class UI {
                         //rzucane przez calc.standardActions jesli ma liczby ale nie ma takiego przypadku
                         System.out.println("There is not such operation available");
                         System.out.println("See help for list of supported operations");
-                    } catch (Factorial.FactorialOnlyNaturalNumbersException e){
+                    } catch (OnlyNaturalNumbersException e){
                         //rzucany przez silnie jesli liczba nie jest naturalna
-                        System.out.println("Factorial only from natural numbers");
-                        System.out.println("You trying to calculate factorial from "+e.getValue());
+                        System.out.println(e.getName()+" only from natural numbers");
+                        System.out.println("You trying to calculate "+e.getName().toLowerCase()+" from "+e.getValue());
                     }
             }
         }
