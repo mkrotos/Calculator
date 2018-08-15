@@ -26,7 +26,8 @@ class UI {
                 case "help":
                     System.out.println("Supported operations: ");
                     System.out.println(" + add \n - subtract \n * multiply \n / divide \n % modulo \n ! factorial \n () brackets \n" +
-                            " sin() of an angle in radians \n cos() of an angle in radians \n tan() of an angle in radians \n PI \n E \n exp() \n random - between 0 and 1 \n sqrt() square root \n" +
+                            " sin() of an angle in radians \n cos() of an angle in radians \n tan() of an angle in radians \n" +
+                            " PI \n E \n exp() \n random - between 0 and 1 \n sqrt() square root \n" +
                             " toRad() converts an angle measured in degrees to angle in radians \n" +
                             " toDeg() converts an angle measured in radians to angle in degrees \n" +
                             " fibonacci() return the value of the nth word of a fibonacci sequence");
@@ -44,7 +45,7 @@ class UI {
                     } catch (NoSuchElementException e) {
                         //rzucane przez calc.standardActions jesli nie ma dwoch liczb do wczytania ze stosu
                         //e.printStackTrace();
-                        System.out.println("No such element ex");
+                        System.out.println("No such element ex ");
                         System.out.println("Wrong equation");
                     } catch (Calc.NoSuchActionAvailableException e) {
                         //rzucane przez calc.standardActions jesli ma liczby ale nie ma takiego przypadku
@@ -54,6 +55,10 @@ class UI {
                         //rzucany przez silnie jesli liczba nie jest naturalna
                         System.out.println(e.getName()+" only from natural numbers");
                         System.out.println("You trying to calculate "+e.getName().toLowerCase()+" from "+e.getValue());
+                    } catch (ToRPN.WrongEquationException e){
+                        //rzucany przez funkcje sprawdzajaca nawiasy
+                        System.out.println("Wrong equation");
+                        System.out.println(e.getProblem());
                     }
             }
         }

@@ -23,6 +23,7 @@ class ToRPN {
         onp = "";
         actualValue = "";
         operatorsStack.clear();
+        checkBrackets();
         convert();
         return onp;
     }
@@ -55,7 +56,10 @@ class ToRPN {
                     case ' ':
                         break;
                     case '(':
-                        //dodac że jeśli c0 było liczbą to jeszcze mnożenie
+                        //jeśli przed nawiasem była cyfra to dodaje znak mnożenia
+                        if (Character.isDigit(c0)) {
+                            operatorsStack.push('*');
+                        }
                         operatorsStack.push(c);
                         break;
                     case ')':    //jak trafi na nawias zamykający do przerzuca operatory ze stosu az do nawiasu otwierającego
@@ -64,8 +68,8 @@ class ToRPN {
                         }
                         operatorsStack.pop();    //usuwa nawias otwierający
                         //jeśli przed nawiasem otwierającym byl na stosie znacznik funkcji do przerzuc funkcje do onp
-                        if(!operatorsStack.isEmpty()&& operatorsStack.peek().equals('#')){
-                            onp+=functionsStack.pop()+pause;
+                        if (!operatorsStack.isEmpty() && operatorsStack.peek().equals('#')) {
+                            onp += functionsStack.pop() + pause;
                             operatorsStack.pop();
                         }
                         break;
@@ -153,20 +157,49 @@ class ToRPN {
         if (Character.isAlphabetic(c)) {
             actualValue += c;
             //jesli kolejny znak jest nawiasem to wyraz byl funkcją i idzie na stos funkcji + zmacznik na stos operatorów
-            if (c2!=null&&c2.equals('(')) {
+            if (c2 != null && c2.equals('(')) {
                 functionsStack.push(actualValue.toLowerCase());
                 //wrzuca # na stos operatorów tam gdzie ma byc funkcja
                 operatorsStack.push('#');
                 //reset aktualnego wyrazu
                 actualValue = "";
                 //jesli konczy się czyms innym to byl wyrazem i idzie od razu do wyrazenia onp
-            }else if(c2 == null || !Character.isAlphabetic(c2)){
-                onp+=actualValue.toLowerCase()+pause;
-                actualValue="";
+            } else if (c2 == null || !Character.isAlphabetic(c2)) {
+                onp += actualValue.toLowerCase() + pause;
+                actualValue = "";
             }
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void checkBrackets() {
+        long openingBrackets = equation.chars().filter(ch -> ch == '(').count();
+        long closingBrackets = equation.chars().filter(ch -> ch == ')').count();
+        while (openingBrackets > closingBrackets) {
+            equation += ')';
+            closingBrackets++;
+        }
+        while(openingBrackets<closingBrackets){
+            if(equation.endsWith(")")){
+                equation=equation.substring(0,equation.length()-1);
+                System.out.println("Last ')' was removed");
+                closingBrackets--;
+            }else {
+                throw new WrongEquationException("To many opening brackets");
+            }
+        }
+    }
+    class WrongEquationException extends ArithmeticException{
+        String problem;
+        private WrongEquationException(String problem){
+            super();
+            this.problem=problem;
+        }
+
+        public String getProblem() {
+            return problem;
         }
     }
 }
