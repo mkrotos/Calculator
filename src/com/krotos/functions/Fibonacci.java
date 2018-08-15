@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Fibonacci {
 
-    static private double calc(double a) throws OnlyNaturalNumbersException{
+    static public double calc(double a) throws OnlyNaturalNumbersException{
         int a2 = (int) a;
         //sprawdzenie czy liczba jest naturalna
         if (a != a2 || a < 0) {
@@ -19,6 +19,6 @@ public class Fibonacci {
         for(int i=3;i<=a;i++){
             fibList.add(fibList.get(i-1)+fibList.get(i-2));
         }
-        return fibList.get(a);
+        return fibList.get((int) a);
     }
 }

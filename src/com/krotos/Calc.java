@@ -1,6 +1,7 @@
 package com.krotos;
 
 import com.krotos.functions.Factorial;
+import com.krotos.functions.Fibonacci;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -73,6 +74,9 @@ class Calc {
                         break;
                     case "sqrt":
                         stack.push(Math.sqrt(stack.pop()));
+                        break;
+                    case "fibonacci":
+                        stack.push(Fibonacci.calc(stack.pop()));
                         break;
                     default:
                         standardActions(word);
