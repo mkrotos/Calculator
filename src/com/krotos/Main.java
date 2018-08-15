@@ -23,13 +23,13 @@ class Main {
         //exp++++
         //abs | |
         //min max average
-        //random
+        //random+++
         //testy
         //sprawdzanie czy dzialanie jest poprawne?
         //stałe pi i e+++
         //integer
         //procenty (zmienic znak modulo)?
-        //pierwiastki
+        //pierwiastki+++
         //hex, octa, binar ?
         //zapis do pliku działań i wyników++
         //historia ++

@@ -65,8 +65,14 @@ class Calc {
                     case "random":
                         stack.push(Math.random());
                         break;
-                    case "r":
-                        stack.push(Math.pow(stack.pop(),0.5));
+                    case "torad":
+                        stack.push(Math.toRadians(stack.pop()));
+                        break;
+                    case "todeg":
+                        stack.push(Math.toDegrees(stack.pop()));
+                        break;
+                    case "sqrt":
+                        stack.push(Math.sqrt(stack.pop()));
                         break;
                     default:
                         standardActions(word);
