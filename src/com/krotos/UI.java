@@ -30,7 +30,8 @@ class UI {
                             " PI \n E \n exp() \n random - between 0 and 1 \n sqrt() square root \n" +
                             " toRad() converts an angle measured in degrees to angle in radians \n" +
                             " toDeg() converts an angle measured in radians to angle in degrees \n" +
-                            " fibonacci() return the value of the nth word of a fibonacci sequence");
+                            " fibonacci() return the value of the nth word of a fibonacci sequence \n" +
+                            " abs() returns the absolute value");
                     break;
                 case "history":
                     history.show();

@@ -1,6 +1,5 @@
 package com.krotos.functions;
 
-import java.io.IOException;
 
 public class Factorial {
     //silnia

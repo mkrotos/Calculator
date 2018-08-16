@@ -23,7 +23,9 @@ class ToRPN {
         onp = "";
         actualValue = "";
         operatorsStack.clear();
+        //sprawdzanie nawiasow
         checkBrackets();
+        //konwersja do postaci onp
         convert();
         return onp;
     }
@@ -57,7 +59,7 @@ class ToRPN {
                         break;
                     case '(':
                         //jeśli przed nawiasem była cyfra to dodaje znak mnożenia
-                        if (Character.isDigit(c0)) {
+                        if (c0!=null&&Character.isDigit(c0)) {
                             operatorsStack.push('*');
                         }
                         operatorsStack.push(c);
@@ -175,27 +177,34 @@ class ToRPN {
     }
 
     private void checkBrackets() {
+        //sprawdza czy w równaniu zgadza sie ilość nawiasów otwierających i zamykających
         long openingBrackets = equation.chars().filter(ch -> ch == '(').count();
         long closingBrackets = equation.chars().filter(ch -> ch == ')').count();
+        //jesli brakuje zamykających to dodaje je na koniec
         while (openingBrackets > closingBrackets) {
             equation += ')';
             closingBrackets++;
         }
-        while(openingBrackets<closingBrackets){
-            if(equation.endsWith(")")){
-                equation=equation.substring(0,equation.length()-1);
+        //jesli brakuje otwierających
+        while (openingBrackets < closingBrackets) {
+            //to jesli równanie konczy sie zamykającym to go usuwa i wyswietla komunikat
+            if (equation.endsWith(")")) {
+                equation = equation.substring(0, equation.length() - 1);
                 System.out.println("Last ')' was removed");
                 closingBrackets--;
-            }else {
+            } else {
+                //lub rzuca wyjątek
                 throw new WrongEquationException("To many opening brackets");
             }
         }
     }
-    class WrongEquationException extends ArithmeticException{
-        String problem;
-        private WrongEquationException(String problem){
+
+    class WrongEquationException extends ArithmeticException {
+        private String problem;
+
+        private WrongEquationException(String problem) {
             super();
-            this.problem=problem;
+            this.problem = problem;
         }
 
         public String getProblem() {

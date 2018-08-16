@@ -1,6 +1,5 @@
 package com.krotos;
 
-
 class Main {
     public static void main(String[] args) {
 
@@ -21,13 +20,12 @@ class Main {
         //sin cos++ +wykres
         //log
         //exp++++
-        //abs | |
+        //abs | | (abs() ++)
         //min max average
         //random+++
         //testy
-        //sprawdzanie czy dzialanie jest poprawne?
+        //sprawdzanie czy dzialanie jest poprawne? (jest sprawdzanie nawiasow)  dodac sprawdzanie wpisanych funkcji
         //stałe pi i e+++
-        //integer
         //procenty (zmienic znak modulo)?
         //pierwiastki+++
         //hex, octa, binar ?
@@ -35,6 +33,7 @@ class Main {
         //historia ++
         //odczyt równania z pliku
         //tworzenie i zapis zmiennych
+        //maven math
 
     }
 }

@@ -6,7 +6,7 @@ import com.krotos.functions.Fibonacci;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-class Calc {
+public class Calc {
 
     //stos liczb
     private Deque<Double> stack = new ArrayDeque<>();
@@ -17,7 +17,7 @@ class Calc {
     private double result;
 
     //wyrażenie przekazane jako string
-    double calculate(String onp) {
+    public double calculate(String onp) {
         stack.clear();
         this.onp = onp;
         //System.out.println("Zaladowano string: "+onp);
@@ -77,6 +77,8 @@ class Calc {
                         break;
                     case "fibonacci":
                         stack.push(Fibonacci.calc(stack.pop()));
+                    case "abs":
+                        stack.push(Math.abs(stack.pop()));
                         break;
                     default:
                         standardActions(word);
@@ -88,36 +90,36 @@ class Calc {
         //System.out.println(stack);
     }
 
-    //pobiera 2 pozycje ze stosu i wykonuje dzialanie, zwraca c na stos
+    //pobiera 2 pozycje ze stosu i wykonuje dzialanie, zwraca result na stos
     private void standardActions(String act) throws NoSuchActionAvailableException {
         Double b = stack.pop();
         Double a = stack.pop();
-        Double c;
+        Double result;
         switch (act) {
             case "+":
-                c = a + b;
+                result = a + b;
                 break;
             case "-":
-                c = a - b;
+                result = a - b;
                 break;
             case "*":
-                c = a * b;
+                result = a * b;
                 break;
             case "/":
-                c = a / b;
+                result = a / b;
                 break;
             case "^":
-                c = Math.pow(a, b);
+                result = Math.pow(a, b);
                 break;
             case "%":
-                c = a % b;
+                result = a % b;
                 break;
             default:
                 //rzuca wyjątek że nie ma takiej operacji
                 throw new NoSuchActionAvailableException();
         }
         //wynik na stos
-        stack.push(c);
+        stack.push(result);
         // System.out.println(a+" "+b);
     }
 
