@@ -8,7 +8,7 @@ import java.util.Scanner;
 class UI {
     private Scanner scanner = new Scanner(System.in);
     private Calc calc = new Calc();
-    private ToRPN conv = new ToRPN();
+    private PrepareEquation prepare = new PrepareEquation();
     private History history = new History();
     private ToFile toFile = new ToFile();
 
@@ -41,7 +41,7 @@ class UI {
                     break;
                 default:
                     try {
-                        Double res = calc.calculate(conv.run(eq));
+                        Double res = calc.calculate(prepare.run(eq));
                         history.add(eq, res);
                     } catch (NoSuchElementException e) {
                         //rzucane przez calc.standardActions jesli nie ma dwoch liczb do wczytania ze stosu
@@ -56,7 +56,7 @@ class UI {
                         //rzucany przez silnie jesli liczba nie jest naturalna
                         System.out.println(e.getName()+" only from natural numbers");
                         System.out.println("You trying to calculate "+e.getName().toLowerCase()+" from "+e.getValue());
-                    } catch (ToRPN.WrongEquationException e){
+                    } catch (PrepareEquation.WrongEquationException e){
                         //rzucany przez funkcje sprawdzajaca nawiasy
                         System.out.println("Wrong equation");
                         System.out.println(e.getProblem());

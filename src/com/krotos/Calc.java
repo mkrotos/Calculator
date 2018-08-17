@@ -10,31 +10,31 @@ public class Calc {
 
     //stos liczb
     private Deque<Double> stack = new ArrayDeque<>();
-    private String onp;
-    //dzialanie onp rozdzielone na wyrazy
-    private String[] tabONP;
+    private String preparedEquation;
+    //dzialanie preparedEquation rozdzielone na wyrazy
+    private String[] arrayFromEquation;
     //do użycia w kolejnych obliczeniach
-    private double result;
+    private double savedResult;
 
     //wyrażenie przekazane jako string
-    public double calculate(String onp) {
+    public double calculate(String preparedEquation) {
         stack.clear();
-        this.onp = onp;
-        //System.out.println("Zaladowano string: "+onp);
+        this.preparedEquation = preparedEquation;
+        //System.out.println("Zaladowano string: "+preparedEquation);
         split();
-        tabToStack();
+        arrayToStack();
         showResult();
-        return result;
+        return savedResult;
     }
 
     //dzieli stringa na wyrazy po spacjach
     private void split() {
-        tabONP = onp.split(" ");
-        //System.out.println(Arrays.toString( tabONP));
+        arrayFromEquation = preparedEquation.split(" ");
+        //System.out.println(Arrays.toString( arrayFromEquation));
     }
 
-    private void tabToStack() {
-        for (String word : tabONP) {
+    private void arrayToStack() {
+        for (String word : arrayFromEquation) {
             try {
                 //probuje przerobic kolejny wyraz na doubla i wrzucic na stos
                 stack.push(Double.parseDouble(word));
@@ -90,7 +90,7 @@ public class Calc {
         //System.out.println(stack);
     }
 
-    //pobiera 2 pozycje ze stosu i wykonuje dzialanie, zwraca result na stos
+    //pobiera 2 pozycje ze stosu i wykonuje dzialanie, zwraca savedResult na stos
     private void standardActions(String act) throws NoSuchActionAvailableException {
         Double b = stack.pop();
         Double a = stack.pop();
@@ -126,7 +126,7 @@ public class Calc {
     //wyświetlenie wyniku
     private void showResult() {
         System.out.println("Wynik: " + stack.peek());
-        result = stack.peek();
+        savedResult = stack.peek();
     }
 
 

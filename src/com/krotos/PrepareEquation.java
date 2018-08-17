@@ -3,86 +3,86 @@ package com.krotos;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-class ToRPN {
+class PrepareEquation {
     private String equation;
     //stos operatorów
     private Deque<Character> operatorsStack = new ArrayDeque<>();
     //stos funkcji
     private Deque<String> functionsStack = new ArrayDeque<>();
     //wynik
-    private String onp = "";
+    private String finalEquation = "";
     //do budowania liczb
     private String actualValue = "";
-    //oddzielenie poszczególnych wyrazów w String onp
+    //oddzielenie poszczególnych wyrazów w String finalEquation
     private String pause = " ";
 
 
     public String run(String equation) {
         this.equation = equation;
         //czyszczenie poprzednich wyników
-        onp = "";
+        finalEquation = "";
         actualValue = "";
         operatorsStack.clear();
         //sprawdzanie nawiasow
         checkBrackets();
-        //konwersja do postaci onp
+        //konwersja do postaci finalEquation
         convert();
-        return onp;
+        return finalEquation;
     }
 
     private void convert() {
-        Character c0;
-        Character c;
-        Character c2;
+        Character previous;
+        Character actual;
+        Character next;
         for (int i = 0; i < equation.length(); i++) {
             //przypisanie kolejnych znaków z równania do analizy
-            c = equation.toCharArray()[i];
+            actual = equation.toCharArray()[i];
             try {
-                c0 = equation.toCharArray()[i - 1];
+                previous = equation.toCharArray()[i - 1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                c0 = null;
+                previous = null;
             }
             try {
-                c2 = equation.toCharArray()[i + 1];
+                next = equation.toCharArray()[i + 1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                c2 = null;
+                next = null;
             }
             //analiza znaku
             //jeśli jest cyfrą:
-            if (buildNumber(c, c2)) {
+            if (buildNumber(actual, next)) {
                 //jeśli jest literą:
-            } else if (buildWord(c, c2)) {
+            } else if (buildWord(actual, next)) {
                 //jeśli jest znakiem:
             } else {
-                switch (c) {
+                switch (actual) {
                     case ' ':
                         break;
                     case '(':
                         //jeśli przed nawiasem była cyfra to dodaje znak mnożenia
-                        if (c0!=null&&Character.isDigit(c0)) {
+                        if (previous!=null&&Character.isDigit(previous)) {
                             operatorsStack.push('*');
                         }
-                        operatorsStack.push(c);
+                        operatorsStack.push(actual);
                         break;
                     case ')':    //jak trafi na nawias zamykający do przerzuca operatory ze stosu az do nawiasu otwierającego
                         while (!operatorsStack.peek().equals('(')) {    //rzucac wyjątek ze nie ma nawiasu otwierającego (jesli null)
-                            onp += operatorsStack.pop() + pause;
+                            finalEquation += operatorsStack.pop() + pause;
                         }
                         operatorsStack.pop();    //usuwa nawias otwierający
-                        //jeśli przed nawiasem otwierającym byl na stosie znacznik funkcji do przerzuc funkcje do onp
+                        //jeśli przed nawiasem otwierającym byl na stosie znacznik funkcji do przerzuc funkcje do finalEquation
                         if (!operatorsStack.isEmpty() && operatorsStack.peek().equals('#')) {
-                            onp += functionsStack.pop() + pause;
+                            finalEquation += functionsStack.pop() + pause;
                             operatorsStack.pop();
                         }
                         break;
                     case '!'://---------- silnia poza kolejką
-                        onp += c + pause;
+                        finalEquation += actual + pause;
                         break;
                     //kolejne przypadki lecą do ostatniego bo tam jest sprawdzenie priorytetu (wszedzie tak samo)
                     //minus musi być pierwszy bo może oznaczać liczbe ujemną
                     case '-':
                         //jeśli minus jest pierwszy w równaniu lub po nawiasie to uznaje że to nie dzialanie tylko liczba ujemna
-                        if (c0 == null || c0.equals('(')) {
+                        if (previous == null || previous.equals('(')) {
                             actualValue += "-";
                             break;
                         }
@@ -93,25 +93,25 @@ class ToRPN {
                     case '^':
                         while (!operatorsStack.isEmpty()) {
                             //sprawdza priorytet dzialania, jak wyższy niż poprzedni lub 3 to nic (3 to potęgi)
-                            if (prior(c) == 3 || prior(c) > prior(operatorsStack.peek())) {
+                            if (prior(actual) == 3 || prior(actual) > prior(operatorsStack.peek())) {
                                 break;
                             } else {
-                                //przerzuca wszystkie dzialania z priorytetem >= ze stosu do onp
-                                onp += operatorsStack.pop() + pause;
+                                //przerzuca wszystkie dzialania z priorytetem >= ze stosu do finalEquation
+                                finalEquation += operatorsStack.pop() + pause;
                             }
                         }
-                        operatorsStack.push(c);        //dzialanie na stos
+                        operatorsStack.push(actual);        //dzialanie na stos
                         break;
                     default:
-                        operatorsStack.push(c);
+                        operatorsStack.push(actual);
 
                 }
             }
         }
-        while (!operatorsStack.isEmpty()) {    //wrzuca wszystkie pozostale operatory do onp
-            onp += operatorsStack.pop() + pause;
+        while (!operatorsStack.isEmpty()) {    //wrzuca wszystkie pozostale operatory do finalEquation
+            finalEquation += operatorsStack.pop() + pause;
         }
-        System.out.println(onp);
+        System.out.println(finalEquation);
     }
 
     private int prior(char a) {        //ustalenie priorytetu dzialania
@@ -142,9 +142,9 @@ class ToRPN {
             } else {
                 actualValue += c;
             }
-            //jesli kolejny znak nie jest cyfrą to konczy aktualny wyraz i przerzuca go do onp
+            //jesli kolejny znak nie jest cyfrą to konczy aktualny wyraz i przerzuca go do finalEquation
             if (c2 == null || !Character.isDigit(c2) && !c2.equals('.') && !c2.equals(',')) {
-                onp += actualValue + pause;
+                finalEquation += actualValue + pause;
                 //reset aktualnego wyrazu
                 actualValue = "";
             }
@@ -165,9 +165,9 @@ class ToRPN {
                 operatorsStack.push('#');
                 //reset aktualnego wyrazu
                 actualValue = "";
-                //jesli konczy się czyms innym to byl wyrazem i idzie od razu do wyrazenia onp
+                //jesli konczy się czyms innym to byl wyrazem i idzie od razu do wyrazenia finalEquation
             } else if (c2 == null || !Character.isAlphabetic(c2)) {
-                onp += actualValue.toLowerCase() + pause;
+                finalEquation += actualValue.toLowerCase() + pause;
                 actualValue = "";
             }
             return true;

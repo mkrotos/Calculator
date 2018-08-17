@@ -14,6 +14,15 @@ public class CalcTest {
         Calc calc=new Calc();
 
         double r1=calc.calculate("2 5 *");
-        Assert.assertEquals(10,r1,delta);
+        assertEquals(10,r1,delta);
+
+        double r2=calc.calculate("pi cos");
+        assertEquals(-1,r2, delta);
+
+        double r3=calc.calculate("pi 2 / cos");
+        assertEquals(0,r3,delta);
+
+        double r4=calc.calculate("*");
+
     }
 }
