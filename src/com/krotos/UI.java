@@ -31,7 +31,9 @@ class UI {
                             " toRad() converts an angle measured in degrees to angle in radians \n" +
                             " toDeg() converts an angle measured in radians to angle in degrees \n" +
                             " fibonacci() return the value of the nth word of a fibonacci sequence \n" +
-                            " abs() returns the absolute value");
+                            " abs() returns the absolute value \n" +
+                            " log() returns the base 10 logarithm of a value \n" +
+                            " ln() returns the base e logarithm of a value");
                     break;
                 case "history":
                     history.show();

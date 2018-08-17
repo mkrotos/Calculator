@@ -80,6 +80,12 @@ public class Calc {
                     case "abs":
                         stack.push(Math.abs(stack.pop()));
                         break;
+                    case "log":
+                        stack.push(Math.log10(stack.pop()));
+                        break;
+                    case "ln":
+                        stack.push(Math.log(stack.pop()));
+                        break;
                     default:
                         standardActions(word);
                         break;

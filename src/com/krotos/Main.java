@@ -18,7 +18,7 @@ class Main {
         //wyjątki
         //liczby ujemne++
         //sin cos++ +wykres
-        //log
+        //log (podstawowe+)
         //exp++++
         //abs | | (abs() ++)
         //min max average
