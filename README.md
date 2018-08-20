@@ -6,14 +6,14 @@ Calculator that reads the entire equation
 + subtract
 + multiply 
 + divide 
-% modulo 
-! factorial 
-() brackets
-sin() 
-cos() 
-tan() 
-PI - const 
-E - const
++ modulo 
++ factorial 
++ () brackets
++ sin() 
++ cos() 
++ tan() 
++ PI - const 
++ E - const
 exp()
 random 
 sqrt() square root
