@@ -3,9 +3,9 @@ Calculator that reads the entire equation
 
 # Ready features
 + add 
-- subtract
-* multiply 
-/ divide 
++ subtract
++ multiply 
++ divide 
 % modulo 
 ! factorial 
 () brackets
