@@ -24,7 +24,7 @@ Calculator that reads the entire equations
 + log() returns the base 10 logarithm of a value 
 + ln() returns the base e logarithm of a value
 
-#TODO
+# TODO
 + Tests
 + charts
 + Checking equations
