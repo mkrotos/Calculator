@@ -23,7 +23,6 @@ class PrepareEquation {
         finalEquation = "";
         actualValue = "";
         operatorsStack.clear();
-        //sprawdzanie nawiasow
         checkBrackets();
         //konwersja do postaci finalEquation
         convert();
@@ -59,7 +58,7 @@ class PrepareEquation {
                         break;
                     case '(':
                         //jeśli przed nawiasem była cyfra to dodaje znak mnożenia
-                        if (previous!=null&&Character.isDigit(previous)) {
+                        if (previous != null && Character.isDigit(previous)) {
                             operatorsStack.push('*');
                         }
                         operatorsStack.push(actual);
@@ -111,7 +110,7 @@ class PrepareEquation {
         while (!operatorsStack.isEmpty()) {    //wrzuca wszystkie pozostale operatory do finalEquation
             finalEquation += operatorsStack.pop() + pause;
         }
-        System.out.println(finalEquation);
+        //System.out.println(finalEquation);
     }
 
     private int prior(char a) {        //ustalenie priorytetu dzialania

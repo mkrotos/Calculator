@@ -1,6 +1,7 @@
 package test;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import com.krotos.*;
 
@@ -8,21 +9,28 @@ import static org.junit.Assert.*;
 
 public class CalcTest {
 
+   private Calc calc=new Calc();
+   private double delta=0.0001;
+
+   @Test
+    public void add(){
+       assertEquals(4,calc.calculate("2 2 +"),delta);
+   }
+   @Test
+    public void subtract(){
+       assertEquals(0,calc.calculate("2 2 -"),delta);
+   }
     @Test
-    public void calculate() {
-        double delta=0.00001;
-        Calc calc=new Calc();
-
-        double r1=calc.calculate("2 5 *");
-        assertEquals(10,r1,delta);
-
-        double r2=calc.calculate("pi cos");
-        assertEquals(-1,r2, delta);
-
-        double r3=calc.calculate("pi 2 / cos");
-        assertEquals(0,r3,delta);
-
-        double r4=calc.calculate("*");
-
+    public void divide(){
+        assertEquals(1,calc.calculate("2 2 /"),delta);
     }
+    @Test
+    public void multiply(){
+        assertEquals(6,calc.calculate("2 3 *"),delta);
+    }
+    @Test
+    public void pow(){
+        assertEquals(8,calc.calculate("2 3 ^"),delta);
+    }
+
 }

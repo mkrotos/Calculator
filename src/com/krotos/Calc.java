@@ -23,7 +23,8 @@ public class Calc {
         //System.out.println("Zaladowano string: "+preparedEquation);
         split();
         arrayToStack();
-        showResult();
+        //showResult();
+        savedResult = stack.peek();
         return savedResult;
     }
 
@@ -126,13 +127,11 @@ public class Calc {
         }
         //wynik na stos
         stack.push(result);
-        // System.out.println(a+" "+b);
     }
 
     //wyświetlenie wyniku
-    private void showResult() {
+    public void showResult() {
         System.out.println("Wynik: " + stack.peek());
-        savedResult = stack.peek();
     }
 
 

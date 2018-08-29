@@ -14,8 +14,8 @@ class Main {
         //obsługa wyjątków++
         //pochodne
         //całki
-        //ciąg fibonacciego
-        //wyjątki
+        //ciąg fibonacciego+++
+        //wyjątki+++
         //liczby ujemne++
         //sin cos++ +wykres
         //log (podstawowe+)

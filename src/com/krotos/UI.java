@@ -44,6 +44,7 @@ class UI {
                 default:
                     try {
                         Double res = calc.calculate(prepare.run(eq));
+                        calc.showResult();
                         history.add(eq, res);
                     } catch (NoSuchElementException e) {
                         //rzucane przez calc.standardActions jesli nie ma dwoch liczb do wczytania ze stosu
