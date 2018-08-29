@@ -5,7 +5,6 @@ import com.krotos.functions.Fibonacci;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.NoSuchElementException;
 
 public class Calc {
 
@@ -18,12 +17,12 @@ public class Calc {
     private double savedResult;
 
     //wyrażenie przekazane jako string
-    public double calculate(String preparedEquation) {
+    public double run(String preparedEquation) {
         stack.clear();
         this.preparedEquation = preparedEquation;
         //System.out.println("Zaladowano string: "+preparedEquation);
         split();
-        arrayToStack();
+        calculate();
         checkResult();
         saveResult();
         //showResult();
@@ -36,7 +35,7 @@ public class Calc {
         //System.out.println(Arrays.toString( arrayFromEquation));
     }
 
-    private void arrayToStack() {
+    private void calculate() {
         for (String word : arrayFromEquation) {
             try {
                 //probuje przerobic kolejny wyraz na doubla i wrzucic na stos
