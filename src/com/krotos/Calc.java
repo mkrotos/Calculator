@@ -5,6 +5,7 @@ import com.krotos.functions.Fibonacci;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.NoSuchElementException;
 
 public class Calc {
 
@@ -23,8 +24,9 @@ public class Calc {
         //System.out.println("Zaladowano string: "+preparedEquation);
         split();
         arrayToStack();
+        checkResult();
+        saveResult();
         //showResult();
-        savedResult = stack.peek();
         return savedResult;
     }
 
@@ -99,8 +101,11 @@ public class Calc {
 
     //pobiera 2 pozycje ze stosu i wykonuje dzialanie, zwraca savedResult na stos
     private void standardActions(String act) throws NoSuchActionAvailableException {
-        Double b = stack.pop();
-        Double a = stack.pop();
+        double b;
+        double a;
+        b = stack.pop();
+        a = stack.pop();
+
         Double result;
         switch (act) {
             case "+":
@@ -134,10 +139,22 @@ public class Calc {
         System.out.println("Wynik: " + stack.peek());
     }
 
+    private void saveResult() {
+        savedResult = stack.peek();
+    }
 
-    class NoSuchActionAvailableException extends IllegalArgumentException {
+    private void checkResult() {
+        if (stack.size() > 1 || stack == null || stack.size() == 0) {
+            throw new NoSuchActionAvailableException();
+        }
+
+    }
+
+
+    public class NoSuchActionAvailableException extends IllegalArgumentException {
         private NoSuchActionAvailableException() {
             super();
         }
     }
+
 }
