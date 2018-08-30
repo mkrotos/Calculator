@@ -47,12 +47,12 @@ class UI {
                         calc.showResult();
                         history.add(eq, res);
                     } catch (NoSuchElementException e) {
-                        //rzucane przez calc.standardActions jesli nie ma dwoch liczb do wczytania ze stosu
+                        //rzucane przez calc jesli nie ma liczb do wczytania ze stosu
                         //e.printStackTrace();
                         System.out.println("No such element ex ");
                         System.out.println("Wrong equation");
                     } catch (Calc.NoSuchActionAvailableException e) {
-                        //rzucane przez calc.standardActions jesli ma liczby ale nie ma takiego przypadku
+                        //rzucane przez calc jesli ma liczby ale nie ma takiego przypadku
                         System.out.println("There is not such operation available");
                         System.out.println("See help for list of supported operations");
                     } catch (OnlyNaturalNumbersException e) {

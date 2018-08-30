@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CalcTest {
@@ -97,6 +95,15 @@ public class CalcTest {
     @Test
     public void exp() {
         assertEquals(7.3890, calc.run("2 exp"), delta);
+    }
+    @Test
+    public void random(){
+        assertTrue(calc.run("random")<=1);
+        assertTrue(calc.run("random")>=0);
+    }
+    @Test
+    public void sqrt(){
+        assertEquals(1.4142,calc.run("2 sqrt"),delta);
     }
 
 

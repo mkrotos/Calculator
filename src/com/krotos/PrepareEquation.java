@@ -3,7 +3,7 @@ package com.krotos;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-class PrepareEquation {
+public class PrepareEquation {
     private String equation;
     //stos operatorów
     private Deque<Character> operatorsStack = new ArrayDeque<>();
@@ -198,7 +198,7 @@ class PrepareEquation {
         }
     }
 
-    class WrongEquationException extends ArithmeticException {
+    public class WrongEquationException extends ArithmeticException {
         private String problem;
 
         private WrongEquationException(String problem) {

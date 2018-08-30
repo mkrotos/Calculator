@@ -146,9 +146,7 @@ public class Calc {
         if (stack.size() > 1 || stack == null || stack.size() == 0) {
             throw new NoSuchActionAvailableException();
         }
-
     }
-
 
     public class NoSuchActionAvailableException extends IllegalArgumentException {
         private NoSuchActionAvailableException() {
