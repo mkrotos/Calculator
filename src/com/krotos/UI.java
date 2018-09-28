@@ -25,8 +25,10 @@ class UI {
                     break;
                 case "help":
                     System.out.println("Supported operations: ");
-                    System.out.println(" + add \n - subtract \n * multiply \n / divide \n % modulo \n ! factorial \n () brackets \n" +
-                            " sin() of an angle in radians \n cos() of an angle in radians \n tan() of an angle in radians \n" +
+                    System.out.println(" + add \n - subtract \n * multiply \n / divide \n" +
+                            " % modulo \n ! factorial \n () brackets \n" +
+                            " sin() of an angle in radians \n cos() of an angle in radians \n" +
+                            " tan() of an angle in radians \n" +
                             " PI \n E \n exp() \n random - between 0 and 1 \n sqrt() square root \n" +
                             " toRad() converts an angle measured in degrees to angle in radians \n" +
                             " toDeg() converts an angle measured in radians to angle in degrees \n" +

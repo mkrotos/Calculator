@@ -64,7 +64,8 @@ public class PrepareEquation {
                         operatorsStack.push(actual);
                         break;
                     case ')':    //jak trafi na nawias zamykający do przerzuca operatory ze stosu az do nawiasu otwierającego
-                        while (!operatorsStack.peek().equals('(')) {    //rzucac wyjątek ze nie ma nawiasu otwierającego (jesli null)
+                        while (!operatorsStack.peek().equals('(')) {
+                            //rzucac wyjątek ze nie ma nawiasu otwierającego (jesli null)
                             finalEquation += operatorsStack.pop() + pause;
                         }
                         operatorsStack.pop();    //usuwa nawias otwierający
