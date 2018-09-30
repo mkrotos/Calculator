@@ -1,4 +1,3 @@
-package test;
 
 import com.krotos.PrepareEquation;
 import org.junit.jupiter.api.Test;

@@ -8,6 +8,7 @@ import java.util.Deque;
 
 public class Calc {
 
+    public static final String SPACE = " ";
     //stos liczb
     private Deque<Double> stack = new ArrayDeque<>();
     private String preparedEquation;
@@ -31,7 +32,7 @@ public class Calc {
 
     //dzieli stringa na wyrazy po spacjach
     private void split() {
-        arrayFromEquation = preparedEquation.split(" ");
+        arrayFromEquation = preparedEquation.split(SPACE);
         //System.out.println(Arrays.toString( arrayFromEquation));
     }
 

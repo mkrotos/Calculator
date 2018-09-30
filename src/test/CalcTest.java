@@ -1,4 +1,3 @@
-package test;
 
 import com.krotos.*;
 import org.junit.jupiter.api.Test;

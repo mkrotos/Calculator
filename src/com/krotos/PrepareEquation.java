@@ -4,6 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class PrepareEquation {
+    public static final String TO_MANY_OPENING_BRACKETS_MESSAGE = "To many opening brackets";
+    public static final String LAST_BRACKET_WAS_REMOVED = "Last ')' was removed";
+    public static final String CLOSING_BRACKET = ")";
+    public static final char DOT_CHAR = '.';
+    public static final char COMMA_CHAR = ',';
+    public static final String EMPTY_STRING = "";
     private String equation;
     //stos operatorów
     private Deque<Character> operatorsStack = new ArrayDeque<>();
@@ -20,8 +26,8 @@ public class PrepareEquation {
     public String run(String equation) {
         this.equation = equation;
         //czyszczenie poprzednich wyników
-        finalEquation = "";
-        actualValue = "";
+        finalEquation = EMPTY_STRING;
+        actualValue = EMPTY_STRING;
         operatorsStack.clear();
         checkBrackets();
         //konwersja do postaci finalEquation
@@ -136,17 +142,17 @@ public class PrepareEquation {
     private boolean buildNumber(Character c, Character c2) {
         //zwraca true, jeśli znak jest cyfrą lub , .
         //jesli znak jest cyfra to buduje liczbe
-        if (Character.isDigit(c) || c.equals('.') || c.equals(',')) {
-            if (c.equals(',')) {
-                actualValue += '.';
+        if (Character.isDigit(c) || c.equals(DOT_CHAR) || c.equals(COMMA_CHAR)) {
+            if (c.equals(COMMA_CHAR)) {
+                actualValue += DOT_CHAR;
             } else {
                 actualValue += c;
             }
             //jesli kolejny znak nie jest cyfrą to konczy aktualny wyraz i przerzuca go do finalEquation
-            if (c2 == null || !Character.isDigit(c2) && !c2.equals('.') && !c2.equals(',')) {
+            if (c2 == null || !Character.isDigit(c2) && !c2.equals(DOT_CHAR) && !c2.equals(COMMA_CHAR)) {
                 finalEquation += actualValue + pause;
                 //reset aktualnego wyrazu
-                actualValue = "";
+                actualValue = EMPTY_STRING;
             }
             return true;
         } else {
@@ -168,7 +174,7 @@ public class PrepareEquation {
                 //jesli konczy się czyms innym to byl wyrazem i idzie od razu do wyrazenia finalEquation
             } else if (c2 == null || !Character.isAlphabetic(c2)) {
                 finalEquation += actualValue.toLowerCase() + pause;
-                actualValue = "";
+                actualValue = EMPTY_STRING;
             }
             return true;
         } else {
@@ -182,19 +188,19 @@ public class PrepareEquation {
         long closingBrackets = equation.chars().filter(ch -> ch == ')').count();
         //jesli brakuje zamykających to dodaje je na koniec
         while (openingBrackets > closingBrackets) {
-            equation += ')';
+            equation += CLOSING_BRACKET;
             closingBrackets++;
         }
         //jesli brakuje otwierających
         while (openingBrackets < closingBrackets) {
             //to jesli równanie konczy sie zamykającym to go usuwa i wyswietla komunikat
-            if (equation.endsWith(")")) {
+            if (equation.endsWith(CLOSING_BRACKET)) {
                 equation = equation.substring(0, equation.length() - 1);
-                System.out.println("Last ')' was removed");
+                System.out.println(LAST_BRACKET_WAS_REMOVED);
                 closingBrackets--;
             } else {
                 //lub rzuca wyjątek
-                throw new WrongEquationException("To many opening brackets");
+                throw new WrongEquationException(TO_MANY_OPENING_BRACKETS_MESSAGE);
             }
         }
     }
