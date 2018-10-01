@@ -6,18 +6,19 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 class ToFile {
+    private static final String UTF_8 = "UTF-8";
+    private static final String FILE_NAME = "calcHistory.txt";
+    private static final String MY_GITHUB_URL = "https://github.com/mkrotos/Calculator";
 
     //zapis historii do pliku txt
-
-    private PrintWriter writer;
 
     //dodac zapis w nowych plikach
 
     void write(List<Memory> list) {
         try {
-            writer = new PrintWriter("calcHistory.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter(FILE_NAME, UTF_8);
 
-            writer.println("https://github.com/mkrotos/Calculator");
+            writer.println(MY_GITHUB_URL);
             writer.println();
             writer.println("Saved equations: ");
             for (Memory mem : list) {
@@ -25,9 +26,7 @@ class ToFile {
             }
             writer.close();
             System.out.println("Saved");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }

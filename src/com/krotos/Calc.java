@@ -144,7 +144,7 @@ public class Calc {
     }
 
     private void checkResult() {
-        if (stack.size() > 1 || stack == null || stack.size() == 0) {
+        if (stack == null ||stack.size() > 1 ||  stack.size() == 0) {
             throw new NoSuchActionAvailableException();
         }
     }

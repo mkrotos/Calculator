@@ -4,23 +4,23 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class PrepareEquation {
-    public static final String TO_MANY_OPENING_BRACKETS_MESSAGE = "To many opening brackets";
-    public static final String LAST_BRACKET_WAS_REMOVED = "Last ')' was removed";
-    public static final String CLOSING_BRACKET = ")";
-    public static final char DOT_CHAR = '.';
-    public static final char COMMA_CHAR = ',';
-    public static final String EMPTY_STRING = "";
+    private static final String TO_MANY_OPENING_BRACKETS_MESSAGE = "To many opening brackets";
+    private static final String LAST_BRACKET_WAS_REMOVED = "Last ')' was removed";
+    private static final String CLOSING_BRACKET = ")";
+    private static final char DOT_CHAR = '.';
+    private static final char COMMA_CHAR = ',';
+    private static final String EMPTY_STRING = "";
+    private static final String PAUSE = " ";
+
     private String equation;
     //stos operatorów
     private Deque<Character> operatorsStack = new ArrayDeque<>();
     //stos funkcji
     private Deque<String> functionsStack = new ArrayDeque<>();
     //wynik
-    private String finalEquation = "";
+    private String finalEquation = EMPTY_STRING;
     //do budowania liczb
-    private String actualValue = "";
-    //oddzielenie poszczególnych wyrazów w String finalEquation
-    private String pause = " ";
+    private String actualValue = EMPTY_STRING;
 
 
     public String run(String equation) {
@@ -72,17 +72,17 @@ public class PrepareEquation {
                     case ')':    //jak trafi na nawias zamykający do przerzuca operatory ze stosu az do nawiasu otwierającego
                         while (!operatorsStack.peek().equals('(')) {
                             //rzucac wyjątek ze nie ma nawiasu otwierającego (jesli null)
-                            finalEquation += operatorsStack.pop() + pause;
+                            finalEquation += operatorsStack.pop() + PAUSE;
                         }
                         operatorsStack.pop();    //usuwa nawias otwierający
                         //jeśli przed nawiasem otwierającym byl na stosie znacznik funkcji do przerzuc funkcje do finalEquation
                         if (!operatorsStack.isEmpty() && operatorsStack.peek().equals('#')) {
-                            finalEquation += functionsStack.pop() + pause;
+                            finalEquation += functionsStack.pop() + PAUSE;
                             operatorsStack.pop();
                         }
                         break;
                     case '!'://---------- silnia poza kolejką
-                        finalEquation += actual + pause;
+                        finalEquation += actual + PAUSE;
                         break;
                     //kolejne przypadki lecą do ostatniego bo tam jest sprawdzenie priorytetu (wszedzie tak samo)
                     //minus musi być pierwszy bo może oznaczać liczbe ujemną
@@ -103,7 +103,7 @@ public class PrepareEquation {
                                 break;
                             } else {
                                 //przerzuca wszystkie dzialania z priorytetem >= ze stosu do finalEquation
-                                finalEquation += operatorsStack.pop() + pause;
+                                finalEquation += operatorsStack.pop() + PAUSE;
                             }
                         }
                         operatorsStack.push(actual);        //dzialanie na stos
@@ -115,7 +115,7 @@ public class PrepareEquation {
             }
         }
         while (!operatorsStack.isEmpty()) {    //wrzuca wszystkie pozostale operatory do finalEquation
-            finalEquation += operatorsStack.pop() + pause;
+            finalEquation += operatorsStack.pop() + PAUSE;
         }
         //System.out.println(finalEquation);
     }
@@ -150,7 +150,7 @@ public class PrepareEquation {
             }
             //jesli kolejny znak nie jest cyfrą to konczy aktualny wyraz i przerzuca go do finalEquation
             if (c2 == null || !Character.isDigit(c2) && !c2.equals(DOT_CHAR) && !c2.equals(COMMA_CHAR)) {
-                finalEquation += actualValue + pause;
+                finalEquation += actualValue + PAUSE;
                 //reset aktualnego wyrazu
                 actualValue = EMPTY_STRING;
             }
@@ -173,7 +173,7 @@ public class PrepareEquation {
                 actualValue = "";
                 //jesli konczy się czyms innym to byl wyrazem i idzie od razu do wyrazenia finalEquation
             } else if (c2 == null || !Character.isAlphabetic(c2)) {
-                finalEquation += actualValue.toLowerCase() + pause;
+                finalEquation += actualValue.toLowerCase() + PAUSE;
                 actualValue = EMPTY_STRING;
             }
             return true;
